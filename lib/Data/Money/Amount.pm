@@ -73,6 +73,30 @@ sub pence {
 	return floor($self->value / 10);
 }
 
+=item C<fromPounds($num)>
+
+Convert the decimal number C<$num> into a new object of this type.
+
+=cut
+
+sub fromPounds {
+	my ($class, $num) = @_;
+	return $class->new(value => int($num * 1000));
+}
+
+=item C<fromPence($pence)>
+
+Convert the integer number C<$pence> into a new object of this type.
+You cannot represent h'pennies nor Farthings this way.  You would need
+to use L</value>.
+
+=cut
+
+sub fromPence {
+	my ($class, $pence) = @_;
+	return $class->new(value => int($pence) * 10);
+}
+
 =back
 
 =cut

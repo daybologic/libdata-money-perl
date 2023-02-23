@@ -79,7 +79,16 @@ sub testTypical {
 	), 'currency');
 
 	return EXIT_SUCCESS;
+}
 
+sub testConstruct {
+	my ($self) = @_;
+	plan tests => 2;
+
+	is($self->sut(Data::Money::Amount->fromPounds(12.34))->value, 12340, 'fromPounds: value');
+	is($self->sut(Data::Money::Amount->fromPence(1234))->value, 12340, 'fromPence: value');
+
+	return EXIT_SUCCESS;
 }
 
 package main;
