@@ -11,6 +11,10 @@ This object represents an amount of money to 0.1p precision.
 The amount is always read-only and any modification may be performed
 via methods calls, which will return a new object where relevant.
 
+=cut
+
+use Data::Money::Currency;
+
 =head1 ATTRIBUTES
 
 =over
