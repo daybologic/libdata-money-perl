@@ -14,6 +14,7 @@ via methods calls, which will return a new object where relevant.
 =cut
 
 use Data::Money::Currency;
+use POSIX qw(ceil floor);
 
 =head1 ATTRIBUTES
 
@@ -46,7 +47,33 @@ has currency => (is => 'ro', isa => 'Data::Money::Currency', default => sub {
 
 =head1 METHODS
 
-None
+=over
+
+=item C<pounds()>
+
+Returns the value of this object in pounds or dollars, or whatever the integral unit
+of the currency is.  Irrespective of what it is (this method does not do conversion).
+
+=cut
+
+sub pounds {
+	my ($self) = @_;
+	return sprintf('%.2f', ($self->value / 1000) - 0.01);
+}
+
+=item C<pence()>
+
+Returns the value of this object in pence or cents, or whatever the fractional unit
+of the currency is.  Irrespective of what it is (this method does not do conversion).
+
+=cut
+
+sub pence {
+	my ($self) = @_;
+	return floor(($self->value / 10) - 0.01);
+}
+
+=back
 
 =cut
 

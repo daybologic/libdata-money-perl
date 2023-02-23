@@ -40,11 +40,49 @@ sub setUp {
 	return EXIT_SUCCESS;
 }
 
-sub testSomething {
-	plan tests => 1;
-	fail("You were supposed to remove this (facepalm)");
+sub testDefaults {
+	my ($self) = @_;
+	plan tests => 4;
+
+#	$self->sut(Data::Money::Amount->new(value => 12345));
+#	is($self->sut->value
+	is($self->sut->value,  0, 'zero value');
+	is($self->sut->pounds, 0, 'zero pounds');
+	is($self->sut->pence,  0, 'zero pence');
+
+	cmp_deeply($self->sut->currency, all(
+		isa('Data::Money::Currency'),
+		methods(
+			iso      => undef,
+			toString => 'Unknown currency',
+		),
+	), 'currency');
+
+	return EXIT_SUCCESS;
+}
+
+sub testTypical {
+	my ($self) = @_;
+	plan tests => 4;
+
+	$self->sut(Data::Money::Amount->new(value => 12345));
+	is($self->sut->value,  12345, 'value');
+	is($self->sut->pounds, 12.34, 'pounds');
+	is($self->sut->pence,  1234, 'pence');
+
+	cmp_deeply($self->sut->currency, all(
+		isa('Data::Money::Currency'),
+		methods(
+			iso      => undef,
+			toString => 'Unknown currency',
+		),
+	), 'currency');
+
+	return EXIT_SUCCESS;
+
 }
 
 package main;
 use strict;
+use warnings;
 exit(basicTests->new->run);
