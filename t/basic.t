@@ -18,10 +18,7 @@ use Test::More;
 sub setUp {
 	my ($self) = @_;
 
-	$self->sut(Data::Money::Amount->new(
-		#dic => $self->dic,
-		#dicRequire => 1, # Enable this for new libraries which should only use the DIC
-	));
+	$self->sut(Data::Money::Amount->new());
 
 	return EXIT_SUCCESS;
 }
