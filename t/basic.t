@@ -15,6 +15,7 @@ use English qw(-no_match_vars);
 use POSIX qw(EXIT_SUCCESS);
 use Test::Deep qw(cmp_deeply all isa methods bool re);
 use Test::Exception;
+use Test::Module::Runnable;
 use Test::More;
 
 sub setUp {
