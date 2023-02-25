@@ -1,5 +1,6 @@
 package Data::Money::Currency::GBP;
 use Moose;
+extends 'Data::Money::Currency';
 
 =head1 NAME
 

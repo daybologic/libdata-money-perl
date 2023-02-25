@@ -40,7 +40,7 @@ The currency of this amount; by default, this is unknown.
 =cut
 
 has currency => (is => 'ro', isa => 'Data::Money::Currency', default => sub {
-	return Data::Money::Currency->new()
+	return Data::Money::Currency->new();
 });
 
 =back
@@ -73,18 +73,20 @@ sub pence {
 	return floor($self->value / 10);
 }
 
-=item C<fromPounds($num)>
+=item C<fromPounds($num, [$currency])>
 
 Convert the decimal number C<$num> into a new object of this type.
 
 =cut
 
 sub fromPounds {
-	my ($class, $num) = @_;
-	return $class->new(value => int($num * 1000));
+	my ($class, $num, $currency) = @_;
+	my %args  = (value => int($num * 1000));
+	$args{currency} = $currency if ($currency);
+	return $class->new(\%args);
 }
 
-=item C<fromPence($pence)>
+=item C<fromPence($pence, [$currency])>
 
 Convert the integer number C<$pence> into a new object of this type.
 You cannot represent h'pennies nor Farthings this way.  You would need
@@ -93,8 +95,10 @@ to use L</value>.
 =cut
 
 sub fromPence {
-	my ($class, $pence) = @_;
-	return $class->new(value => int($pence) * 10);
+	my ($class, $pence, $currency) = @_;
+	my %args = (value => int($pence) * 10);
+	$args{currency} = $currency if ($currency);
+	return $class->new(\%args);
 }
 
 =back

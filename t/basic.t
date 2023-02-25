@@ -6,6 +6,7 @@ use Moose;
 extends 'Test::Module::Runnable';
 
 use Data::Money::Amount;
+use Data::Money::Currency::GBP;
 use English qw(-no_match_vars);
 use POSIX qw(EXIT_SUCCESS);
 use Test::Deep qw(cmp_deeply all isa methods bool re);
@@ -69,6 +70,34 @@ sub testConstruct {
 
 	is($self->sut(Data::Money::Amount->fromPounds(12.34))->value, 12340, 'fromPounds: value');
 	is($self->sut(Data::Money::Amount->fromPence(1234))->value, 12340, 'fromPence: value');
+
+	return EXIT_SUCCESS;
+}
+
+sub testConstructWithCurrencyObject {
+	my ($self) = @_;
+	plan tests => 2;
+
+	foreach my $constructor (qw(fromPence fromPounds)) {
+		cmp_deeply(
+			$self->sut(
+				Data::Money::Amount->$constructor(
+					$self->unique(),
+					Data::Money::Currency::GBP->new(),
+				),
+			),
+			all(
+				isa('Data::Money::Amount'),
+				methods(
+					currency => all(
+						isa('Data::Money::Currency'),
+						isa('Data::Money::Currency::GBP'),
+					),
+				),
+			),
+			"Construct with GBP via $constructor",
+		);
+	}
 
 	return EXIT_SUCCESS;
 }
