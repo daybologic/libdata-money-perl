@@ -7,6 +7,7 @@ extends 'Test::Module::Runnable';
 
 use Data::Money::Amount;
 use Data::Money::Currency::GBP;
+use Data::Money::Currency::USD;
 use English qw(-no_match_vars);
 use POSIX qw(EXIT_SUCCESS);
 use Test::Deep qw(cmp_deeply all isa methods bool re);
@@ -76,10 +77,10 @@ sub testConstruct {
 
 sub testConstructWithCurrencyObject {
 	my ($self) = @_;
-	plan tests => 2;
+	plan tests => 2 * 2;
 
 	foreach my $constructor (qw(fromPence fromPounds)) {
-		foreach my $currency (qw(GBP)) {
+		foreach my $currency (qw(GBP USD)) {
 			my $currencyObj = Data::Money::Currency->fromStandard($currency);
 
 			cmp_deeply(

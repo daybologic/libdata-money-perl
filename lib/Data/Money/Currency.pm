@@ -17,6 +17,16 @@ None
 
 =over
 
+=item C<fromStandard($standard)>
+
+=cut
+
+sub fromStandard {
+	my ($class, $standard) = @_;
+	$class = join('::', $class, $standard);
+	return $class->new();
+}
+
 =item C<toString()>
 
 Returns the human-readble, long-name for the currency.
