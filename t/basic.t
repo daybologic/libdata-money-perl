@@ -104,6 +104,36 @@ sub testConstructWithCurrencyObject {
 	return EXIT_SUCCESS;
 }
 
+sub testConstructWithCurrencyStandard {
+	my ($self) = @_;
+	plan tests => 2 * 2;
+
+	foreach my $constructor (qw(fromPence fromPounds)) {
+		foreach my $currency (qw(GBP USD)) {
+			cmp_deeply(
+				$self->sut(
+					Data::Money::Amount->$constructor(
+						$self->unique(),
+						$currency,
+					),
+				),
+				all(
+					isa('Data::Money::Amount'),
+					methods(
+						currency => all(
+							isa('Data::Money::Currency'),
+							isa("Data::Money::Currency::${currency}"),
+						),
+					),
+				),
+				"Construct with $currency via $constructor",
+			);
+		}
+	}
+
+	return EXIT_SUCCESS;
+}
+
 package main;
 use strict;
 use warnings;

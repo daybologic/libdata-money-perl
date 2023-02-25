@@ -9,6 +9,10 @@ Data::Money::Currency - Represents the currency
 
 Generic object representing the currency of a given L<Data::Money::Amount>.
 
+=cut
+
+use Scalar::Util qw(blessed);
+
 =head1 ATTRIBUTES
 
 None
@@ -23,6 +27,7 @@ None
 
 sub fromStandard {
 	my ($class, $standard) = @_;
+	return $standard if blessed($standard);
 	$class = join('::', $class, $standard);
 	return $class->new();
 }

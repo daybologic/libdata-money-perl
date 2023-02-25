@@ -82,7 +82,7 @@ Convert the decimal number C<$num> into a new object of this type.
 sub fromPounds {
 	my ($class, $num, $currency) = @_;
 	my %args  = (value => int($num * 1000));
-	$args{currency} = $currency if ($currency);
+	$args{currency} = Data::Money::Currency->fromStandard($currency) if ($currency);
 	return $class->new(\%args);
 }
 
@@ -97,7 +97,7 @@ to use L</value>.
 sub fromPence {
 	my ($class, $pence, $currency) = @_;
 	my %args = (value => int($pence) * 10);
-	$args{currency} = $currency if ($currency);
+	$args{currency} = Data::Money::Currency->fromStandard($currency) if ($currency);
 	return $class->new(\%args);
 }
 
