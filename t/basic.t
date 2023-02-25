@@ -36,7 +36,7 @@ sub testDefaults {
 	cmp_deeply($self->sut->currency, all(
 		isa('Data::Money::Currency'),
 		methods(
-			iso      => undef,
+			standard => undef,
 			toString => 'Unknown currency',
 		),
 	), 'currency');
@@ -56,7 +56,7 @@ sub testTypical {
 	cmp_deeply($self->sut->currency, all(
 		isa('Data::Money::Currency'),
 		methods(
-			iso      => undef,
+			standard => undef,
 			toString => 'Unknown currency',
 		),
 	), 'currency');
@@ -79,24 +79,28 @@ sub testConstructWithCurrencyObject {
 	plan tests => 2;
 
 	foreach my $constructor (qw(fromPence fromPounds)) {
-		cmp_deeply(
-			$self->sut(
-				Data::Money::Amount->$constructor(
-					$self->unique(),
-					Data::Money::Currency::GBP->new(),
-				),
-			),
-			all(
-				isa('Data::Money::Amount'),
-				methods(
-					currency => all(
-						isa('Data::Money::Currency'),
-						isa('Data::Money::Currency::GBP'),
+		foreach my $currency (qw(GBP)) {
+			my $currencyObj = Data::Money::Currency->fromStandard($currency);
+
+			cmp_deeply(
+				$self->sut(
+					Data::Money::Amount->$constructor(
+						$self->unique(),
+						$currencyObj,
 					),
 				),
-			),
-			"Construct with GBP via $constructor",
-		);
+				all(
+					isa('Data::Money::Amount'),
+					methods(
+						currency => all(
+							isa('Data::Money::Currency'),
+							isa("Data::Money::Currency::${currency}"),
+						),
+					),
+				),
+				"Construct with $currency via $constructor",
+			);
+		}
 	}
 
 	return EXIT_SUCCESS;

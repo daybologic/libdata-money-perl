@@ -28,14 +28,14 @@ sub toString {
 	return 'Unknown currency';
 }
 
-=item C<iso()>
+=item C<standard()>
 
 Return the ISO 4217:2015 code of the class, eg. 'GBP'.
 If unspecified, we return C<undef>.
 
 =cut
 
-sub iso {
+sub standard {
 	my ($self) = @_;
 	my $code = (split(m/::/, ref($self)))[-1];
 	return $code if (length($code) == 3);
