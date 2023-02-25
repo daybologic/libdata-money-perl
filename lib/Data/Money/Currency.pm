@@ -23,6 +23,10 @@ None
 
 =item C<fromStandard($standard)>
 
+Given the standard - C<$standard> which is an ISO 4217:2015 code for example 'GBP',
+we construct and return a class subclass of ourselves, which is dedicated for that
+currency.  This call is indepotent.
+
 =cut
 
 sub fromStandard {
