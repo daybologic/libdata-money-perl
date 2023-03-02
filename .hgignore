@@ -1,2 +1,2 @@
 syntax: glob
-api-key.txt
+*.ini
