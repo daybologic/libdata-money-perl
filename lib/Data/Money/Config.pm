@@ -5,6 +5,24 @@ use Config::INI::Reader;
 
 has __config => (is => 'ro', isa => 'HashRef', lazy => 1, default => \&__makeConfig);
 
+sub get {
+	my ($self, undef, $keyName) = @_;
+	my $sectionName = 'Data::Money::Currency::Converter::Repository::APILayer';
+	my $value = $self->__config->{$sectionName}->{$keyName};
+	return $self->__stripQuotes($value);
+}
+
+sub __stripQuotes {
+	my ($self, $value) = @_;
+
+	if ($value) {
+		$value =~ s/^'//;
+		$value =~ s/'$//;
+	}
+
+	return $value;
+}
+
 sub __makeConfig {
 	my ($self) = @_;
 
