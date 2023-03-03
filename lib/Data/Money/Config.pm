@@ -10,8 +10,8 @@ has filePath => (is => 'ro', isa => 'Str', lazy => 1, default => \&__findFilePat
 has __config => (is => 'ro', isa => 'HashRef', lazy => 1, default => \&__makeConfig);
 
 sub get {
-	my ($self, undef, $keyName) = @_;
-	my $sectionName = 'Data::Money::Currency::Converter::Repository::APILayer';
+	my ($self, $module, $keyName) = @_;
+	my $sectionName = ref($module);
 	my $value = $self->__config->{$sectionName}->{$keyName};
 	return $self->__stripQuotes($value);
 }
