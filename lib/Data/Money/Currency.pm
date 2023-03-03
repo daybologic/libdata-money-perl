@@ -12,6 +12,7 @@ Generic object representing the currency of a given L<Data::Money::Amount>.
 =cut
 
 use Scalar::Util qw(blessed);
+require UNIVERSAL::require;
 
 =head1 ATTRIBUTES
 
@@ -32,8 +33,10 @@ currency.  This call is indepotent.
 sub fromStandard {
 	my ($class, $standard) = @_;
 	return $standard if blessed($standard);
-	$class = join('::', $class, $standard);
-	return $class->new();
+	my $fullClassName = join('::', $class, $standard);
+	$fullClassName->require or die $@;
+
+	return $fullClassName->new();
 }
 
 =item C<standard()>
