@@ -40,7 +40,4 @@ sub __findFilePath {
 	return $FILENAME;
 }
 
-# TODO: Need to be able to access this from all API backends and have them automagically access the right
-# section with a simple get('api_key') call
-
 1;
