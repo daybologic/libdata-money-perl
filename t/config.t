@@ -16,20 +16,22 @@ use Test::More;
 sub setUp {
 	my ($self) = @_;
 
-	$self->sut(Data::Money::Config->new());
+	$self->sut(Data::Money::Config->new(filePath => 'test-suite.ini'));
 
 	return EXIT_SUCCESS;
 }
 
 sub testReadAPIKey {
 	my ($self) = @_;
-	plan tests => 1;
+	plan tests => 2;
 
-	my $value = $self->sut->get($self, 'api_key');
+	my $value = $self->sut->get($self, 'quoted');
+	is($value, 'U87gtxAhk9TwTayZvLFwj2rgzkdOw6hV', 'quoted');
 
-	is($value, 'U87gtxAhk9TwTayZvLFwj2rgzkdOw6hV', 'value');
+	$value = $self->sut->get($self, 'unquoted');
+	is($value, 'GNn9ztM8Pr33f7lVdsXjXaZ69gk5Y7A0', 'unquoted');
 
-	return;
+	return EXIT_SUCCESS;
 }
 
 package main;
