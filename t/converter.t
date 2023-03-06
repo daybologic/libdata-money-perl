@@ -5,6 +5,7 @@ use warnings;
 use Moose;
 extends 'Test::Module::Runnable';
 
+use Data::Dumper;
 use Data::Money::Amount;
 use Data::Money::Config;
 use Data::Money::Currency::Converter::Repository;
@@ -31,6 +32,7 @@ sub testAPILayer_ReadAPIKey {
 
 	my $amountInput = Data::Money::Amount->fromPence(100, 'GBP');
 	my $amountOutput = $self->sut($self->sut->repo('APILayer'))->convert($amountInput, 'USD');
+	die Dumper $amountOutput;
 
 	return EXIT_SUCCESS;
 }
