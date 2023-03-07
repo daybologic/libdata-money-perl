@@ -19,7 +19,7 @@ sub convert {
 	my ($self, $sourceAmount, $targetCurrency) = @_;
 	$targetCurrency = Data::Money::Currency->fromStandard($targetCurrency);
 
-	my $response = $self->__ua->get($self->__makeURI());
+	my $response = $self->__ua->get($self->__makeURI($sourceAmount));
 	if (!$response->is_success) {
 		return;
 	}
@@ -39,14 +39,14 @@ sub convert {
 }
 
 sub __makeURI {
-	my ($self) = @_;
+	my ($self, $sourceAmount) = @_;
 
 	my $uri = URI->new();
 
 	$uri->scheme('https');
 	$uri->host('api.apilayer.com');
 	$uri->path('currency_data/convert');
-	$uri->query('from=GBP&to=USD&amount=5');
+	$uri->query(sprintf('from=GBP&to=USD&amount=%s', $sourceAmount->pounds));
 
 	return $uri->as_string();
 }

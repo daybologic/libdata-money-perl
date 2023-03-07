@@ -58,7 +58,7 @@ of the currency is.  Irrespective of what it is (this method does not do convers
 
 sub pounds {
 	my ($self) = @_;
-	return int($self->pence + 0.50001) / 100;
+	return sprintf('%0.2f', int($self->pence + 0.50001) / 100);
 }
 
 =item C<pence()>
