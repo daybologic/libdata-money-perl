@@ -13,9 +13,9 @@ use Data::Money::Currency::GBP;
 use Data::Money::Currency::USD;
 use Data::Money::Currency::Converter;
 use Data::Money::Currency::Converter::Repository;
-use Data::Money::Currency::Converter::Repository::Dummy;
-use Data::Money::Currency::Converter::Repository::Base;
 use Data::Money::Currency::Converter::Repository::APILayer;
+use Data::Money::Currency::Converter::Repository::Base;
+use Data::Money::Currency::Converter::Repository::Dummy;
 use English qw(-no_match_vars);
 use POSIX qw(EXIT_SUCCESS);
 use Readonly;
@@ -34,19 +34,18 @@ sub setUp {
 
 sub testAPILayer_VERSION {
 	my ($self) = @_;
-	#plan tests => 10;
-	plan tests => 1;
+	plan tests => 10;
 
 	is($Data::Money::Amount::VERSION, $VERSION, '$Data::Money::Amount::VERSION');
-#$Data::Money::Config;
-#$Data::Money::Currency;
-#$Data::Money::Currency::GBP;
-#$Data::Money::Currency::USD;
-#$Data::Money::Currency::Converter;
-#$Data::Money::Currency::Converter::Repository;
-#$Data::Money::Currency::Converter::Repository::Dummy;
-#$Data::Money::Currency::Converter::Repository::Base;
-#$Data::Money::Currency::Converter::Repository::APILayer;
+	is($Data::Money::Config::VERSION, $VERSION, '$Data::Money::Config::VERSION');
+	is($Data::Money::Currency::VERSION, $VERSION, '$Data::Money::Currency::VERSION');
+	is($Data::Money::Currency::GBP::VERSION, $VERSION, '$Data::Money::Currency::GBP::VERSION');
+	is($Data::Money::Currency::USD::VERSION, $VERSION, '$Data::Money::Currency::USD::VERSION');
+	is($Data::Money::Currency::Converter::VERSION, $VERSION, '$Data::Money::Currency::Converter::VERSION');
+	is($Data::Money::Currency::Converter::Repository::VERSION, $VERSION, '$Data::Money::Currency::Converter::Repository::VERSION');
+	is($Data::Money::Currency::Converter::Repository::APILayer::VERSION, $VERSION, '$Data::Money::Currency::Converter::Repository::APILayer::VERSION');
+	is($Data::Money::Currency::Converter::Repository::Base::VERSION, $VERSION, '$Data::Money::Currency::Converter::Repository::Base::VERSION');
+	is($Data::Money::Currency::Converter::Repository::Dummy::VERSION, $VERSION, '$Data::Money::Currency::Converter::Repository::Dummy::VERSION');
 
 	return EXIT_SUCCESS;
 }
