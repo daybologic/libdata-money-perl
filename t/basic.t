@@ -27,9 +27,9 @@ sub testDefaults {
 	my ($self) = @_;
 	plan tests => 4;
 
-	is($self->sut->value,  0, 'zero value');
-	is($self->sut->pounds, 0, 'zero pounds');
-	is($self->sut->pence,  0, 'zero pence');
+	is($self->sut->value,  0,      'zero value');
+	is($self->sut->pounds, '0.00', 'zero pounds');
+	is($self->sut->pence,  0,      'zero pence');
 
 	cmp_deeply($self->sut->currency, all(
 		isa('Data::Money::Currency'),
