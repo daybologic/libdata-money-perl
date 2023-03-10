@@ -16,11 +16,8 @@ use Data::Money::Currency::Converter::Repository;
 use Data::Money::Currency::Converter::Repository::APILayer;
 use Data::Money::Currency::Converter::Repository::Base;
 use Data::Money::Currency::Converter::Repository::Dummy;
-use English qw(-no_match_vars);
 use POSIX qw(EXIT_SUCCESS);
 use Readonly;
-use Test::Deep qw(cmp_deeply all isa methods bool re);
-use Test::Exception;
 use Test::Module::Runnable;
 use Test::More;
 
