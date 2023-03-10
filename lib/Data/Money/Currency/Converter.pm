@@ -9,6 +9,12 @@ Data::Money::Currency::Converter
 
 The converter is an interface to a third party currency conversion service.
 
+=cut
+
+BEGIN {
+	our $VERSION = '0.1.0';
+}
+
 =head1 ATTRIBUTES
 
 None

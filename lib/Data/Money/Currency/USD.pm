@@ -10,6 +10,12 @@ Data::Money::Currency::USD
 
 USD is a specific currency of the type L<Data::Money::Currency>.
 
+=cut
+
+BEGIN {
+	our $VERSION = '0.1.0';
+}
+
 =head1 ATTRIBUTES
 
 None

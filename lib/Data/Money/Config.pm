@@ -4,6 +4,10 @@ use Moose;
 use Config::INI::Reader;
 use Readonly;
 
+BEGIN {
+	our $VERSION = '0.1.0';
+}
+
 Readonly my $FILENAME => 'money.ini';
 
 has filePath => (is => 'ro', isa => 'Str', lazy => 1, default => \&__findFilePath);

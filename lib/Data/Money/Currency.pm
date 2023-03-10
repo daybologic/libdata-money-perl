@@ -14,6 +14,10 @@ Generic object representing the currency of a given L<Data::Money::Amount>.
 use Scalar::Util qw(blessed);
 require UNIVERSAL::require;
 
+BEGIN {
+	our $VERSION = '0.1.0';
+}
+
 =head1 ATTRIBUTES
 
 None

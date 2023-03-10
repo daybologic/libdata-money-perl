@@ -9,6 +9,10 @@ use JSON;
 use LWP::UserAgent;
 use URI;
 
+BEGIN {
+	our $VERSION = '0.1.0';
+}
+
 has __apiKey => (isa => 'Str', is => 'ro', init_arg => undef, lazy => 1, required => 1, default => \&__makeApiKey);
 
 has __ua => (isa => 'LWP::UserAgent', is => 'ro', init_arg => undef, lazy => 1, required => 1, default => \&__makeUA);
