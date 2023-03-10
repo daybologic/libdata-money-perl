@@ -18,10 +18,13 @@ use Data::Money::Currency::Converter::Repository::Base;
 use Data::Money::Currency::Converter::Repository::APILayer;
 use English qw(-no_match_vars);
 use POSIX qw(EXIT_SUCCESS);
+use Readonly;
 use Test::Deep qw(cmp_deeply all isa methods bool re);
 use Test::Exception;
 use Test::Module::Runnable;
 use Test::More;
+
+Readonly my $VERSION => '0.1.0';
 
 sub setUp {
 	my ($self) = @_;
@@ -31,9 +34,20 @@ sub setUp {
 
 sub testAPILayer_VERSION {
 	my ($self) = @_;
+	#plan tests => 10;
 	plan tests => 1;
 
-	ok('FIXME');
+	is($Data::Money::Amount::VERSION, $VERSION, '$Data::Money::Amount::VERSION');
+#$Data::Money::Config;
+#$Data::Money::Currency;
+#$Data::Money::Currency::GBP;
+#$Data::Money::Currency::USD;
+#$Data::Money::Currency::Converter;
+#$Data::Money::Currency::Converter::Repository;
+#$Data::Money::Currency::Converter::Repository::Dummy;
+#$Data::Money::Currency::Converter::Repository::Base;
+#$Data::Money::Currency::Converter::Repository::APILayer;
+
 	return EXIT_SUCCESS;
 }
 

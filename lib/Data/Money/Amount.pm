@@ -16,6 +16,10 @@ via methods calls, which will return a new object where relevant.
 use Data::Money::Currency;
 use POSIX qw(ceil floor);
 
+BEGIN {
+	our $VERSION = '0.1.0';
+}
+
 =head1 ATTRIBUTES
 
 =over
