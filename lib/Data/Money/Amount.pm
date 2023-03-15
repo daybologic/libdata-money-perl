@@ -79,8 +79,16 @@ sub pence {
 
 sub add {
 	my ($self, $other) = @_;
-	$other = $self->fromPence($other) if (!blessed($other));
-	return $self->fromPence($self->pence + $other->pence);
+
+	if (!blessed($other)) {
+		my @params = ($other);
+		push(@params, $self->currency) if ($self->currency->standard);
+		$other = $self->fromPence(@params);
+	}
+
+	my @params = ($self->pence + $other->pence);
+	push(@params, $other->currency) if ($other->currency->standard);
+	return $self->fromPence(@params);
 }
 
 =item C<fromPounds($num, [$currency])>
@@ -124,8 +132,6 @@ sub toString {
 	my $str = $self->pounds();
 	if (my $currencyStandard = $self->currency->standard) { # is undef if unspecified
 		$str = sprintf('%s %s (%s)', $str, $currencyStandard, $self->currency->toString());
-	} else {
-		$str = sprintf('%s (%s)', $str, $self->currency->toString());
 	}
 
 	return $str;

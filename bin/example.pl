@@ -34,7 +34,7 @@ sub earnMoney {
 
 sub __makePension {
 	my ($self) = @_;
-	return Data::Money::Amount->fromPence(0);
+	return Data::Money::Amount->fromPence(0, 'GBP');
 }
 
 package main;
