@@ -14,6 +14,7 @@ via methods calls, which will return a new object where relevant.
 =cut
 
 use Data::Money::Currency;
+use Data::Money::Currency::Converter::Repository;
 use POSIX qw(ceil floor);
 
 BEGIN {
@@ -89,6 +90,15 @@ sub add {
 	my @params = ($self->pence + $other->pence);
 	push(@params, $other->currency) if ($other->currency->standard);
 	return $self->fromPence(@params);
+}
+
+sub convert {
+	my ($self, $currency) = @_;
+
+	my $converter = Data::Money::Currency::Converter::Repository->new();
+	my $apiLayer = $converter->repo('APILayer');
+
+	return $apiLayer->convert($self, $currency);
 }
 
 =item C<fromPounds($num, [$currency])>

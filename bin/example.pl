@@ -13,6 +13,8 @@ sub run {
 	$self->printNetWorth();
 	$self->earnMoney();
 	$self->printNetWorth();
+	$self->emigrate();
+	$self->printNetWorth();
 
 	return EXIT_SUCCESS;
 }
@@ -20,6 +22,14 @@ sub run {
 sub printNetWorth {
 	my ($self) = @_;
 	printf("Your net worth is %s\n", $self->pension->toString());
+	return;
+}
+
+sub emigrate {
+	my ($self) = @_;
+
+	$self->pension($self->pension->convert('USD'));
+
 	return;
 }
 
