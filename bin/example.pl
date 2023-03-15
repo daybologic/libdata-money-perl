@@ -25,7 +25,10 @@ sub printNetWorth {
 
 sub earnMoney {
 	my ($self) = @_;
-	$self->pension($self->pension->addPence(50));
+
+	$self->pension($self->pension->add(50));
+	$self->pension($self->pension->add(2));
+
 	return;
 }
 

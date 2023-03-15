@@ -77,9 +77,10 @@ sub pence {
 	return floor($self->value / 10);
 }
 
-sub addPence {
-	my ($self, $pence) = @_;
-	return $self->fromPence($self->pence + $pence);
+sub add {
+	my ($self, $other) = @_;
+	$other = $self->fromPence($other) if (!blessed($other));
+	return $self->fromPence($self->pence + $other->pence);
 }
 
 =item C<fromPounds($num, [$currency])>
@@ -105,6 +106,7 @@ to use L</value>.
 
 sub fromPence {
 	my ($class, $pence, $currency) = @_;
+	#$pence = $pence->pence if (blessed($pence));
 	my %args = (value => int($pence) * 10);
 	$args{currency} = Data::Money::Currency->fromStandard($currency) if ($currency);
 	return $class->new(\%args);
@@ -118,8 +120,14 @@ TODO
 
 sub toString {
 	my ($self) = @_;
+
 	my $str = $self->pounds();
-	# TODO: Optional Currency
+	if (my $currencyStandard = $self->currency->standard) { # is undef if unspecified
+		$str = sprintf('%s %s (%s)', $str, $currencyStandard, $self->currency->toString());
+	} else {
+		$str = sprintf('%s (%s)', $str, $self->currency->toString());
+	}
+
 	return $str;
 }
 
