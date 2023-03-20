@@ -33,12 +33,12 @@ sub convert {
 		return;
 	}
 
-	warn $result->{result}; # TODO
+	#warn $result->{result}; # TODO
 	my $amount = Data::Money::Amount->fromPounds(
 		$result->{result},
 		$result->{query}->{to},
 	);
-	warn $amount->pounds;
+	#warn $amount->pounds;
 	return $amount;
 }
 

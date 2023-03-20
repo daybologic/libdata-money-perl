@@ -4,7 +4,9 @@ package YourPackage;
 use Moose;
 use POSIX qw(EXIT_SUCCESS);
 use Data::Money::Amount;
+use Data::Money::Config;
 
+has config => (is => 'rw', isa => 'Data::Money::Config', default => \&__makeConfig);
 has pension => (is => 'rw', isa => 'Data::Money::Amount', default => \&__makePension);
 
 sub run {
@@ -44,7 +46,16 @@ sub earnMoney {
 
 sub __makePension {
 	my ($self) = @_;
-	return Data::Money::Amount->fromPence(0, 'GBP');
+
+	my $amount = Data::Money::Amount->fromPence(0, 'GBP');
+	$amount->config($self->config);
+
+	return $amount;
+}
+
+sub __makeConfig {
+	my ($self) = @_;
+	return Data::Money::Config->new();
 }
 
 package main;

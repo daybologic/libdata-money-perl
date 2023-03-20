@@ -48,6 +48,8 @@ has currency => (is => 'ro', isa => 'Data::Money::Currency', default => sub {
 	return Data::Money::Currency->new();
 });
 
+has config => (is => 'rw', isa => 'Maybe[Data::Money::Config]');
+
 =back
 
 =head1 METHODS
@@ -85,20 +87,33 @@ sub add {
 		my @params = ($other);
 		push(@params, $self->currency) if ($self->currency->standard);
 		$other = $self->fromPence(@params);
+		$other->config($self->config);
 	}
 
 	my @params = ($self->pence + $other->pence);
 	push(@params, $other->currency) if ($other->currency->standard);
-	return $self->fromPence(@params);
+	my $newAmount = $self->fromPence(@params);
+	$newAmount->config($self->config);
+	return $newAmount;
 }
 
 sub convert {
 	my ($self, $currency) = @_;
 
-	my $converter = Data::Money::Currency::Converter::Repository->new();
+	my $converter = Data::Money::Currency::Converter::Repository->new($self->__getConverterRepoConstructorArgs());
 	my $apiLayer = $converter->repo('APILayer');
 
 	return $apiLayer->convert($self, $currency);
+}
+
+sub __getConverterRepoConstructorArgs {
+	my ($self) = @_;
+
+	my %args = ( );
+	confess('fooled') unless $self->config;
+	$args{config} = $self->config if ($self->config);
+
+	return \%args;
 }
 
 =item C<fromPounds($num, [$currency])>
