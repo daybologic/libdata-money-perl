@@ -3,7 +3,9 @@ use Moose;
 
 require UNIVERSAL::require;
 
-has config => (is => 'ro', isa => 'Data::Money::Config', required => 1);
+use Data::Money::Config;
+
+has config => (is => 'ro', isa => 'Data::Money::Config', lazy => 1, default => \&__makeConfig);
 
 BEGIN {
 	our $VERSION = '0.1.0';
@@ -16,6 +18,11 @@ sub repo {
 	$fullClassName->require or die $@;
 
 	return $fullClassName->new(config => $self->config);
+}
+
+sub __makeConfig {
+	my ($self) = @_;
+	return Data::Money::Config->new();
 }
 
 1;

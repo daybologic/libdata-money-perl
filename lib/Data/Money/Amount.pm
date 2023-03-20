@@ -110,7 +110,7 @@ sub __getConverterRepoConstructorArgs {
 	my ($self) = @_;
 
 	my %args = ( );
-	confess('fooled') unless $self->config;
+	#confess('fooled') unless $self->config;
 	$args{config} = $self->config if ($self->config);
 
 	return \%args;
