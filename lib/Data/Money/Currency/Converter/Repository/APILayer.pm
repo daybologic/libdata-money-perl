@@ -3,6 +3,7 @@ use Moose;
 
 extends 'Data::Money::Currency::Converter::Repository::Base';
 
+use Data::Dumper;
 use Data::Money::Amount;
 use Data::Money::Currency;
 use JSON;
@@ -23,34 +24,40 @@ sub convert {
 	my ($self, $sourceAmount, $targetCurrency) = @_;
 	$targetCurrency = Data::Money::Currency->fromStandard($targetCurrency);
 
-	my $response = $self->__ua->get($self->__makeURI($sourceAmount));
+	my $response = $self->__ua->get($self->__makeURI($sourceAmount, $targetCurrency));
 	if (!$response->is_success) {
 		return;
 	}
 
 	my $result = $self->__decoder->decode($response->decoded_content);
 	if (!$result->{success}) {
+		warn Dumper $result;
 		return;
 	}
 
-	#warn $result->{result}; # TODO
+	warn $result->{result}; # TODO
 	my $amount = Data::Money::Amount->fromPounds(
 		$result->{result},
 		$result->{query}->{to},
 	);
-	#warn $amount->pounds;
+	warn $amount->pounds;
 	return $amount;
 }
 
 sub __makeURI {
-	my ($self, $sourceAmount) = @_;
+	my ($self, $sourceAmount, $targetCurrency) = @_;
 
 	my $uri = URI->new();
 
 	$uri->scheme('https');
 	$uri->host('api.apilayer.com');
 	$uri->path('currency_data/convert');
-	$uri->query(sprintf('from=GBP&to=USD&amount=%s', $sourceAmount->pounds));
+	$uri->query(sprintf(
+		'from=%s&to=%s&amount=%s',
+		$sourceAmount->currency->standard,
+		$targetCurrency->standard,
+		$sourceAmount->pounds,
+	));
 
 	return $uri->as_string();
 }
