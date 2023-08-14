@@ -11,7 +11,7 @@ use LWP::UserAgent;
 use URI;
 
 BEGIN {
-	our $VERSION = '0.1.0';
+	our $VERSION = '0.2.0';
 }
 
 # You may override this to avoid use of a config file

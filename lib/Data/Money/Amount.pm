@@ -18,7 +18,7 @@ use Data::Money::Currency::Converter::Repository;
 use POSIX qw(ceil floor);
 
 BEGIN {
-	our $VERSION = '0.1.0';
+	our $VERSION = '0.2.0';
 }
 
 =head1 ATTRIBUTES

@@ -21,7 +21,7 @@ use Readonly;
 use Test::Module::Runnable;
 use Test::More;
 
-Readonly my $VERSION => '0.1.0';
+Readonly my $VERSION => '0.2.0';
 
 sub setUp {
 	my ($self) = @_;
