@@ -13,7 +13,7 @@ USD is a specific currency of the type L<Data::Money::Currency>.
 =cut
 
 BEGIN {
-	our $VERSION = '0.1.0';
+	our $VERSION = '0.2.0';
 }
 
 =head1 ATTRIBUTES

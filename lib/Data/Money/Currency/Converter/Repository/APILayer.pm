@@ -11,8 +11,11 @@ use LWP::UserAgent;
 use URI;
 
 BEGIN {
-	our $VERSION = '0.1.0';
+	our $VERSION = '0.2.0';
 }
+
+# You may override this to avoid use of a config file
+our $apiKey;
 
 has __apiKey => (isa => 'Str', is => 'ro', init_arg => undef, lazy => 1, required => 1, default => \&__makeApiKey);
 
@@ -64,7 +67,7 @@ sub __makeURI {
 
 sub __makeApiKey {
 	my ($self) = @_;
-	return $self->_config->get($self, 'api_key');
+	return $apiKey ? $apiKey : $self->_config->get($self, 'api_key');
 }
 
 sub __makeUA {

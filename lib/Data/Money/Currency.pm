@@ -15,7 +15,7 @@ use Scalar::Util qw(blessed);
 require UNIVERSAL::require;
 
 BEGIN {
-	our $VERSION = '0.1.0';
+	our $VERSION = '0.2.0';
 }
 
 =head1 ATTRIBUTES

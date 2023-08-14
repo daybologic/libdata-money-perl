@@ -12,7 +12,7 @@ The converter is an interface to a third party currency conversion service.
 =cut
 
 BEGIN {
-	our $VERSION = '0.1.0';
+	our $VERSION = '0.2.0';
 }
 
 =head1 ATTRIBUTES

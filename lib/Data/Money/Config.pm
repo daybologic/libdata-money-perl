@@ -5,7 +5,7 @@ use Config::INI::Reader;
 use Readonly;
 
 BEGIN {
-	our $VERSION = '0.1.0';
+	our $VERSION = '0.2.0';
 }
 
 Readonly my $FILENAME => 'money.ini';

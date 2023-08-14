@@ -8,7 +8,7 @@ use Data::Money::Config;
 has config => (is => 'ro', isa => 'Data::Money::Config', lazy => 1, default => \&__makeConfig);
 
 BEGIN {
-	our $VERSION = '0.1.0';
+	our $VERSION = '0.2.0';
 }
 
 sub repo {
